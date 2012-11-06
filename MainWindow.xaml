@@ -1,0 +1,55 @@
+﻿<Window x:Class="LifeGameWindow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="500" Width="550"
+        Loaded="Window_Loaded">
+    
+    <!-- コマンド定義 -->
+    <Window.CommandBindings>
+        <CommandBinding Command="MediaCommands.Play"
+                        Executed="PlayCmd_Executed" CanExecute="PlayCmd_CanExecute" />
+        <CommandBinding Command="MediaCommands.Stop"
+                        Executed="StopCmd_Executed" CanExecute="StopCmd_CanExecute" />
+    </Window.CommandBindings>
+    
+    <!-- 画面設計 -->
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="ファイル(_F)">
+                <MenuItem x:Name="myMenuOpen" Header="開く(_O)" />
+                <MenuItem x:Name="myMenuSave"  Header="保存(_S)" />
+                <MenuItem x:Name="myMenuQuit" Header="終了(_Q)" Click="myMenuQuit_Click"/>
+            </MenuItem>
+            <MenuItem Header="編集(_E)">
+                <MenuItem x:Name="myMenuPlay" Header="再生(_P)" Command="MediaCommands.Play" />
+                <MenuItem x:Name="myMenuStop" Header="停止(_S)" Command="MediaCommands.Stop" />
+                <Separator Margin="0,-2" />
+                <MenuItem x:Name="myMenuRandom" Header="ランダム配置(_R)" Click="RandomSet_Click" />
+                <MenuItem x:Name="myMenuUserSet" Header="任意配置(_U)" IsCheckable="True" Click="UserSet_Click"/>
+                <MenuItem x:Name="myMenuClear" Header="クリア(_C)" Click="ClearSet_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Left">
+            <ToolBar DockPanel.Dock="Left">
+                <Button x:Name="myBtnPlay" Command="MediaCommands.Play" Height="24" Width=" 32" ToolTip="再生">
+                    <Image Source="/LifeGameWindow;component/Images/Play.ico" />
+                </Button>
+                <Button x:Name="myBtnStop" Command="MediaCommands.Stop" Height="24" Width="32" ToolTip="停止">
+                    <Image Source="/LifeGameWindow;component/Images/Stop.ico" />
+                </Button>
+            </ToolBar>
+
+            <ToolBar DockPanel.Dock="Left" x:Name="myToolBarSetPos" HorizontalAlignment="Left">
+                <Button Content="ランダム" Click="RandomSet_Click"/>
+                <CheckBox x:Name="myToolUserSet" Content="任意配置" Click="UserSet_Click" />
+                <Button Content="クリア" Click="ClearSet_Click" />
+            </ToolBar>
+        </DockPanel>
+
+        <Border BorderThickness="1" BorderBrush="Black" Background="Black">
+            <Grid x:Name="myGridLifeArea" />
+        </Border>
+    </DockPanel>
+
+</Window>
